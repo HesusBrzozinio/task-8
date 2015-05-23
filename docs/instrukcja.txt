@@ -1,0 +1,13 @@
+1) Zmodyfikuj serwis RoleServiceBean w taki sposób aby role by³y pobierane z bazy danych. W tym celu:
+2) Utwórz zapytanie w jêzyku JPQL
+3) Za pomoc¹ EntityManagera utwórz obiekt TypedQuery przekazuj¹c zapytanie jako parametr
+4) Z obiektu TypedQuery pobierz wyniki zapytania
+5) U¿yj metody getRoleNames w celu konwersji listy encji na listê enumów
+
+
+6) Zmodyfikuj serwis UserAuthenticationService w taki sposób aby dane u¿ytkownika podczas logowania czytane by³y z bazy danych; w tym celu:
+- utwórz zapytanie JPQL które pobiera u¿ytkownika i powi¹zane z nim role i posiadaj¹cego podan¹ nazwê i has³o oraz stan ACTIVE
+- utwórz obiekt TypedQuery za pomoc¹ EntityManagera podaj¹c zapytanie JPQL jako parametr
+- przeka¿ parametry zapytania do utworzonego obiektu TypedQuery
+- z obiektu TypedQuery pobierz pojedynczy wynik zapytania
+- u¿yj serwisu UserTransformationBean do transformacji obiektu encji w obiekt DTO
