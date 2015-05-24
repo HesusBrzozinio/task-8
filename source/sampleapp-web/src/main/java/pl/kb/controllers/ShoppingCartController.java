@@ -33,15 +33,13 @@ public class ShoppingCartController implements Serializable {
 
 	private int cartItemQuantity;
 
-	@EJB
-	private MessageSenderBean sender;
 
 	public void addBook(final Book book, final int quantity) {
 		updateCart(book, quantity);
 		calculatePriceAndQuantity();
 		setEntries(new ArrayList<Entry<Book, Quantity>>(books.entrySet()));
 		LOG.info("shopping cart updated");
-		sender.sendMessage(book);
+
 	}
 
 	private void updateCart(final Book book, final int quantity) {

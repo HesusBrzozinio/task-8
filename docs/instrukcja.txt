@@ -1,13 +1,30 @@
-1) Zmodyfikuj serwis RoleServiceBean w taki sposób aby role by³y pobierane z bazy danych. W tym celu:
-2) Utwórz zapytanie w jêzyku JPQL
-3) Za pomoc¹ EntityManagera utwórz obiekt TypedQuery przekazuj¹c zapytanie jako parametr
-4) Z obiektu TypedQuery pobierz wyniki zapytania
-5) U¿yj metody getRoleNames w celu konwersji listy encji na listê enumów
+1) Message sender
+bezstanowy bean sesyjny
+
+wstrzykn¹æ obiekt ConnectionFactory (parametr mapped name pobraæ z logów)
+wstrzykn¹æ obiekt Queue (parametr mapped name pobraæ z logów)
+
+za pomoc¹ fabryki utworzyæ Connection
+z obiektu Connection pobraæ obiekt Session
+za pomoc¹ Session utworzyæ MessageProducer oraz ObjectMessage
+
+wstawiæ wiadomoœæ do obiektu wiadomoœci
+wys³aæ wiadomoœæ za pomoc¹ MessageProducer
+
+zamkn¹æ obiekt producenta
+zamkn¹æ obiekt sesji
+zamkn¹æ obiekt po³¹czenia
 
 
-6) Zmodyfikuj serwis UserAuthenticationService w taki sposób aby dane u¿ytkownika podczas logowania czytane by³y z bazy danych; w tym celu:
-- utwórz zapytanie JPQL które pobiera u¿ytkownika i powi¹zane z nim role i posiadaj¹cego podan¹ nazwê i has³o oraz stan ACTIVE
-- utwórz obiekt TypedQuery za pomoc¹ EntityManagera podaj¹c zapytanie JPQL jako parametr
-- przeka¿ parametry zapytania do utworzonego obiektu TypedQuery
-- z obiektu TypedQuery pobierz pojedynczy wynik zapytania
-- u¿yj serwisu UserTransformationBean do transformacji obiektu encji w obiekt DTO
+1) Message receiver
+bezstanowy komponent sesyjny implementuj¹cy MessageListeter
+oznaczyæ komponent adnotacj¹ dla beanów sterowanych komunikatami
+parametry adnotacji znaleŸæ w internecie a wartoœci parametrów pobraæ z logów serwera aplikacji
+
+w implementacji metody interfejsu sprawdziæ czy wiadomosæi jest typu TextMessage czy ObjectMessage
+
+pobraæ obiekt z otrzymanej wiadomoœci 
+wyœwietliæ obiekt w logach
+
+
+wstrzykn¹æ MessageSendera do kontrolera koszyka i wywo³ywaæ jego metodê przy ka¿dym dodawaniu ksi¹¿ki do koszyka, obiektem wiadomoœci bêdzie ksi¹¿ka
